@@ -1,0 +1,29 @@
+{
+  "name": "@andrewmat/hooks",
+  "version": "0.1.0",
+  "description": "A collection of React custom hooks that I've developed",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Andrewmat/hooks.git"
+  },
+  "keywords": [
+    "react",
+    "hooks",
+    "utils",
+    "random",
+    "cache"
+  ],
+  "author": "Andrewmat",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Andrewmat/hooks/issues"
+  },
+  "homepage": "https://github.com/Andrewmat/hooks#readme",
+  "dependencies": {
+    "react": "^16.8.0-alpha.1"
+  }
+}
