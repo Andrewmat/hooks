@@ -1,5 +1,4 @@
 import { useContext, useDebugValue } from 'react'
-import { sha256 } from 'js-sha256'
 import { CacheContext } from '../components/CacheProvider'
 import { warn } from '../utils/devconsole'
 
@@ -19,7 +18,7 @@ function defaultKeyGenerator(args) {
     })
     .join(',')
 
-  return sha256(stringArgs)
+  return stringArgs
 }
 
 /**
