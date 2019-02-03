@@ -44,7 +44,7 @@ It returns the current value, and an increment function, in array form
 
 ```jsx
 function MyComponent() {
-  const [value, increment] = useCounter()
+  const [value, increment] = useCounter();
   return <button onClick={increment}>value</button>
 }
 ```
