@@ -5,6 +5,15 @@ import useDocumentTitle from './src/hooks/useDocumentTitle'
 import useIterator from './src/hooks/useIterator'
 import useToggle from './src/hooks/useToggle'
 
+export {
+  CacheProvider,
+  useCache,
+  useCounter,
+  useDocumentTitle,
+  useIterator,
+  useToggle,
+}
+
 export default {
   CacheProvider,
   useCache,
