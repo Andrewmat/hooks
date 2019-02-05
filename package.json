@@ -2,9 +2,10 @@
   "name": "@andrewmat/hooks",
   "version": "0.2.3",
   "description": "A collection of React custom hooks that I've developed",
-  "main": "index.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rollup -c=./rollup.config.js"
   },
   "repository": {
     "type": "git",
@@ -26,5 +27,17 @@
   "dependencies": {
     "react": "^16.8.0-alpha.1",
     "react-dom": "^16.8.0-alpha.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "8.0.5",
+    "rollup": "^1.1.2",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "webpack": "^4.29.1",
+    "webpack-cli": "^3.2.1"
   }
 }
