@@ -1,6 +1,6 @@
 {
   "name": "@andrewmat/hooks",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "A collection of React custom hooks that I've developed",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
