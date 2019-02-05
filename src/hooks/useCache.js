@@ -1,5 +1,5 @@
 import { useContext, useDebugValue } from 'react'
-import { CacheContext } from '../components/CacheProvider.jsx'
+import { CacheContext } from '../components/CacheProvider'
 import { warn } from '../utils/devconsole'
 
 function defaultKeyGenerator(args) {
