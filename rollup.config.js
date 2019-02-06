@@ -1,10 +1,6 @@
 import resolve from 'rollup-plugin-node-resolve'
 import babel from 'rollup-plugin-babel'
-import {
-  dependencies,
-  devDependencies,
-  peerDependencies
-} from './package.json';
+import { dependencies, devDependencies, peerDependencies } from './package.json'
 
 function config(format) {
   return {
@@ -18,12 +14,12 @@ function config(format) {
       resolve({
         extensions: ['.jsx', '.js'],
       }),
-      babel()
+      babel(),
     ],
     external: id =>
       (dependencies && dependencies[id]) ||
       (devDependencies && devDependencies[id]) ||
-      (peerDependencies && peerDependencies[id])
+      (peerDependencies && peerDependencies[id]),
   }
 }
 

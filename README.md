@@ -21,13 +21,19 @@ import { useIterator } from '@andrewmat/hooks'
 import { useToggle } from '@andrewmat/hooks'
 ```
 
-## So... where they are?
+## So... where are they?
 
 Inside the `/src/hooks` there are multiple hooks that I developed. I'm avoiding using external package dependencies, and focusing only on the original React resources for now
 
 ### useToggle
 
 **Standalone hook**
+
+Identity:
+
+```jsx
+const [value, toggle] = useToggle([initialValue = false, toggleValue = true])
+```
 
 It stores one of two options, and returns the current option and a function that changes to the other option.
 As default, it simply changes between booleans, with false as initial value.
@@ -68,12 +74,12 @@ function MyComponent() {
   const [theme, toggleTheme] = useToggle(['blue', 'pink'])
 
   return (
-    <>
+    <div>
       This is the {theme} theme!
       <button onClick={toggleTheme} className={`${theme}-theme`}>
         Toggle
       </button>
-    </>
+    </div>
   )
 }
 ```
@@ -82,11 +88,16 @@ function MyComponent() {
 
 **Standalone hook**
 
+Identity:
+```jsx
+const [value, increment] = useCounter(initialValue = 0)
+```
+
 It returns the current value, and an increment function, in array form
 
 ```jsx
 function MyComponent() {
-  const [value, increment] = useCounter();
+  const [value, increment] = useCounter()
   return <button onClick={increment}>value</button>
 }
 ```
@@ -95,18 +106,30 @@ function MyComponent() {
 
 **Standalone hook**
 
+Identity:
+
+```jsx
+useDocumentTitle(title)
+```
+
 It receives an title to apply to the document. It also returns to the previous title when the component unmounts
 
 ```jsx
 function MyComponent() {
   useDocumentTitle('Example Title')
-  // ...
+  return <div />
 }
 ```
 
 ### useIterator
 
 **Standalone hook**
+
+Identity:
+```jsx
+const controller = useIterator(list, loop = false, startIndex = 0)
+// controller: { item, index, next, previous, hasNext, hasPrevious }
+```
 
 It receives an array, and returns an controller to iterate in this array
 
@@ -115,11 +138,11 @@ function MyComponent() {
   const myList = ['Alice', 'Ben', 'Charles']
   const iterator = useIterator(list)
   return (
-    <>
+    <div>
       <button onClick={iterator.previous}>Previous</button>
       {iterator.item}
       <button onClick={iterator.next}>Next</button>
-    </>
+    </div>
   )
 }
 ```
@@ -162,7 +185,12 @@ iterator.hasPrevious
 
 ### useCache
 
-A "complex" system to use cache in the application. It uses the CacheProvider (inside `/src/components`) that creates an context used for caching resources
+
+```jsx
+const cacheFetch = useCache(async function () {})
+```
+
+A hook to use cache to store resolutions of async functions. It uses the CacheProvider (inside `/src/components`) that creates an context used for caching resources.
 
 It receives an async function, and it returns an async function that mimics the given function, using caching resources whenever possible
 
@@ -176,6 +204,15 @@ function MyComponent() {
 
   return (
     <MyAnotherComponent onChange={myCachedFetch} />
+  )
+}
+
+// useCache should be used alongside CacheProvider
+function App() {
+  return (
+    <CacheProvider>
+      <MyComponent/>
+    </CacheProvider>
   )
 }
 ```
@@ -218,10 +255,10 @@ function MyComponent({ data }) {
   const cachedFetch = useCache(myFetch, { namespace: 'my-fetch' })
 
   return (
-    <>
+    <div>
       <button onClick={() => cachedFetch(data)}>Fetch data<button>
-      <button onClick={() => cachedFetch.clearCache()}>Reset cache<button>
-    </>
+      <button onClick={cachedFetch.clearCache}>Reset cache<button>
+    </div>
   )
 }
 ```

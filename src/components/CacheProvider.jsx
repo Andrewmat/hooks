@@ -1,12 +1,10 @@
 import React, { createContext, useContext, useState } from 'react'
+import { throwError } from '../utils/devconsole'
 
 const sendInitError = () => {
-  try {
-    throw new Error('Uninitialized cache context')
-  } catch (error) {
-    console.error(error)
-  }
+  throwError(new Error('[CacheProvider] Uninitialized cache context'))
 }
+
 export const CacheContext = createContext({
   _cache: {},
   getCache: () => ({
@@ -16,49 +14,59 @@ export const CacheContext = createContext({
     remove: sendInitError,
     clear: sendInitError,
   }),
+  resetCache: sendInitError,
 })
+
+function cacheFactory(namespace, cacheState, setCacheState) {
+  function initNamespace() {
+    cacheState._cache[namespace] = new Map()
+  }
+  function getNamespace() {
+    return cacheState._cache[namespace]
+  }
+
+  function get(key) {
+    return getNamespace().get(key)
+  }
+  function set(key, value) {
+    getNamespace().set(key, value)
+    setCacheState(cacheState)
+  }
+  function remove(key) {
+    getNamespace().delete(key)
+    setCacheState(cacheState)
+  }
+  function clear() {
+    getNamespace().clear()
+    setCacheState(cacheState)
+  }
+
+  if (!getNamespace()) {
+    initNamespace()
+  }
+
+  return {
+    size: getNamespace().size,
+    get,
+    set,
+    remove,
+    clear,
+  }
+}
 
 export default function CacheProvider({ children }) {
   const cacheContent = useContext(CacheContext)
   const [cacheState, setCacheState] = useState(cacheContent)
 
   function getCache(namespace) {
-    const initNamespace = () => {
-      cacheState._cache[namespace] = new Map()
-    }
-    const getNamespace = () => cacheState._cache[namespace]
-
-    if (!getNamespace()) {
-      initNamespace()
-    }
-    function get(key) {
-      return getNamespace().get(key)
-    }
-    function set(key, value) {
-      getNamespace().set(key, value)
-      setCacheState(cacheState)
-    }
-    function remove(key) {
-      getNamespace().delete(key)
-      setCacheState(cacheState)
-    }
-    function clear() {
-      getNamespace().clear()
-      setCacheState(cacheState)
-    }
-
-    const val = {
-      size: getNamespace().size,
-      get,
-      set,
-      remove,
-      clear,
-    }
-    return val
+    return cacheFactory(namespace, cacheState, setCacheState)
+  }
+  function resetCache() {
+    cacheState._cache = {}
   }
 
   return (
-    <CacheContext.Provider value={{ ...cacheState, getCache }}>
+    <CacheContext.Provider value={{ ...cacheState, getCache, resetCache }}>
       {children}
     </CacheContext.Provider>
   )
