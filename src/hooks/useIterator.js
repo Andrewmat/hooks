@@ -21,22 +21,22 @@ export default function useIterator(list, loop = false, startIndex = 0) {
     return limitedIndex
   }
 
-  function genHookProps(i) {
+  function createController(i) {
     return {
       index: i,
       item: list[i],
       next: () => {
         const nextIndex = setLimitedIndex(i + 1)
-        return genHookProps(nextIndex)
+        return createController(nextIndex)
       },
       previous: () => {
         const previousIndex = setLimitedIndex(i - 1)
-        return genHookProps(previousIndex)
+        return createController(previousIndex)
       },
       hasNext: loop || i < list.length - 1,
       hasPrevious: loop || i !== 0,
     }
   }
 
-  return genHookProps(index)
+  return createController(index)
 }

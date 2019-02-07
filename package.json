@@ -7,7 +7,8 @@
   "scripts": {
     "build": "rollup -c=./rollup.config.js",
     "lint": "eslint **/*.{js,jsx}",
-    "analyze": "bundle-phobia -p ./package.json > deps-size.txt"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "repository": {
     "type": "git",
@@ -40,6 +41,7 @@
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
     "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.1.0",
     "babel-loader": "8.0.5",
     "eslint": "^5.13.0",
     "eslint-config-prettier": "^4.0.0",
@@ -51,10 +53,21 @@
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-react-app": "^4.0.1",
+    "jest": "^24.1.0",
+    "jest-dom": "^3.0.2",
+    "jest-pnp-resolver": "^1.1.0",
     "prettier": "^1.16.4",
+    "react-app-polyfill": "^0.2.0",
+    "react-testing-library": "^5.5.3",
     "rollup": "^1.1.2",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-node-resolve": "^4.0.0",
     "webpack": "^4.29.1"
+  },
+  "jest": {
+    "setupFiles": [
+      "react-app-polyfill/jsdom",
+      "<rootDir>/config/jest.setup.js"
+    ]
   }
 }
