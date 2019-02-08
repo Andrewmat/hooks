@@ -13,5 +13,14 @@ describe('useDocumentTitle', () => {
     expect(document.title).toBe('another title')
   })
 
-  it.todo('returns to original document title when component is unmounted')
+  it('returns to original document title when component is unmounted', () => {
+    document.title = 'a title'
+    const { unmount } = testHook(() => {
+      useDocumentTitle('another title')
+    })
+
+    expect(document.title).toBe('another title')
+    unmount()
+    expect(document.title).toBe('a title')
+  })
 })
